@@ -13,10 +13,16 @@ const Status = () => {
             <p className="p-4 bg-white shadow-md m-2 rounded-md">
                 Sun rises at {' '}
                 <span className="text-md text-bold text-pink-600">
-                    { new Date(weather.sys.sunrise * 1000).toUTCString()}
+                    { new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit"
+                                  })}
                 </span>
                 {' '}and set {' '}
-                 <span className="text-md text-bold text-gray-700">{ new Date(weather.sys.sunset * 1000).toUTCString()}</span>
+                 <span className="text-md text-bold text-gray-700">{ new Date(weather.sys.sunset * 1000).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit"
+                                  })}</span>
             </p>
         </div>
         

@@ -3,13 +3,19 @@ import WeatherContext from './context/WeatherContext';
 
 const Search = () => {
 	const weatherContext = useContext(WeatherContext);
-	const { getWeather } = weatherContext;
+	const { getWeather, setLoading, loading } = weatherContext;
 
 	const text = useRef('')
 
 	const onSubmit = (e) =>{
 		e.preventDefault();
-		getWeather(text.current.value);
+		if(loading){
+			alert('Please wait ... still loading data')
+		}else{
+			setLoading(true)
+			getWeather(text.current.value);
+		}
+		
 	}
 
     return (
@@ -29,6 +35,12 @@ const Search = () => {
 						/>
 					</div>
 				</div>
+				<button type="submit" 
+				className={`${loading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600'} my-2 w-full antialiased capitalize py-2 bg-blue-600 text-white font-semibold text-xl text-serif`}>
+					{
+						loading ? 'Please wait...' : 'SEARCH'
+					}
+				</button>
 			</form>
 		</div>
     )

@@ -1,5 +1,6 @@
 import {
     GET_WEATHER,
+    SET_LOADING,
     WEATHER_ERROR
 } from './types'
 
@@ -9,13 +10,20 @@ const WeatherReducer = (state, action) =>{
             return {
                 ...state,
                 error:null,
-                weather: action.payload
+                weather: action.payload,
+                loading: false
             }
         case WEATHER_ERROR:
             return {
                 ...state,
                 weather:null,
                 error: action.payload,
+                loading: false,
+            }
+        case SET_LOADING:
+            return{
+                ...state,
+                loading: action.payload
             }
         default:
         return{

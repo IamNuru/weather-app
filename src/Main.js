@@ -6,23 +6,24 @@ import Temperature from './components/Temperature';
 import WeatherContext from './components/context/WeatherContext';
 import cold from './assets/cold-bg.jpg'
 import warm from './assets/warm-bg.jpg'
+import Loading from './components/Loading'
 
 
 const Main = () => {
 	const weatherContext = useContext(WeatherContext);
-	const { weather, error } = weatherContext;
+	const { weather, error, loading } = weatherContext;
     
 
     return (
-        <div> 
+        <> 
              <Search />
             {
-                error === null ? weather !== null ?
-                <div classsName="h-screen bg-cover bg-bottom" 
+                !loading ? error === null ? weather !== null ?
+                <div className="min-h-screen bg-cover bg-bottom" 
                 style={{backgroundImage: (weather.main.temp > 16) ?  `url(${warm})`:`url(${cold})`}
                 }>
                      
-                     <div className="wrap-main h-screen">
+                     <div className="wrap-main min-h-screen pb-8">
                         <Info />
                         <Temperature />
                         <Status />
@@ -30,12 +31,16 @@ const Main = () => {
                     
                 </div>
                 :
-                <h4 className="font-bold antialiased font-serif text-lg px-4 py-2 bg-pink-600 text-white m-4">Search by country or city</h4>
+                <p className="font-mono text-medium text-white m-4">Search by country or city</p>
                 :
-                <h2>{error.message}</h2>
+                <h2 className="text-red-600 text-xl capitalize italic">{error.message}</h2>
+                : <div className="mt-16">
+                    <Loading />
+                </div>
             }
+                    
             
-        </div>
+        </>
     )
 }
 

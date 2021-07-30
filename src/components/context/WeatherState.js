@@ -4,6 +4,7 @@ import WeatherReducer from './WeatherReducer';
 import WeatherContext from './WeatherContext';
 import {
     GET_WEATHER,
+    SET_LOADING,
     WEATHER_ERROR
 } from './types'
 
@@ -19,6 +20,7 @@ const WeatherState = (props) => {
     const initialState ={
         weather:null,
         error:null,
+        loading: false,
     }
 
     const [state, dispatch] = useReducer(WeatherReducer, initialState);
@@ -27,6 +29,7 @@ const WeatherState = (props) => {
     const getWeather = async (query) =>{
         try {
             const res = await axios.get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`);
+            console.log(res.data)
             dispatch ({
                 type: GET_WEATHER,
                 payload: res.data
@@ -38,11 +41,20 @@ const WeatherState = (props) => {
             })
         }
     }
+
+    const setLoading = val =>{
+        dispatch({
+            type: SET_LOADING,
+            payload: val
+        })
+    }
     return (
         <WeatherContext.Provider value={{
             weather: state.weather,
             error: state.error,
+            loading: state.loading,
             getWeather,
+            setLoading,
         }}>
             {props.children}
             
