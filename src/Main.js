@@ -1,5 +1,4 @@
 import React , { useContext } from 'react';
-import Search from './components/Search';
 import Info from './components/Info';
 import Status from './components/Status';
 import Temperature from './components/Temperature';
@@ -7,6 +6,7 @@ import WeatherContext from './components/context/WeatherContext';
 import cold from './assets/cold-bg.jpg'
 import warm from './assets/warm-bg.jpg'
 import Loading from './components/Loading'
+import Header from './components/Header';
 
 
 const Main = () => {
@@ -16,10 +16,10 @@ const Main = () => {
 
     return (
         <> 
-             <Search />
+            <Header />
             {
                 !loading ? error === null ? weather !== null ?
-                <div className="min-h-screen bg-cover bg-bottom" 
+                <div className="min-h-screen bg-cover" 
                 style={{backgroundImage: (weather.main.temp > 16) ?  `url(${warm})`:`url(${cold})`}
                 }>
                      
